@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-vm-eval-module"
+description = "Enables the vm_eval_module command without any pre-configured scope."
+commands.allow = ["vm_eval_module"]
+
+[[permission]]
+identifier = "deny-vm-eval-module"
+description = "Denies the vm_eval_module command without any pre-configured scope."
+commands.deny = ["vm_eval_module"]

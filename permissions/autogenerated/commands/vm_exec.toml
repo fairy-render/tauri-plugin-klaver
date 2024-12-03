@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-vm-exec"
+description = "Enables the vm_exec command without any pre-configured scope."
+commands.allow = ["vm_exec"]
+
+[[permission]]
+identifier = "deny-vm-exec"
+description = "Denies the vm_exec command without any pre-configured scope."
+commands.deny = ["vm_exec"]

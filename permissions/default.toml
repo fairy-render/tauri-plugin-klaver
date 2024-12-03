@@ -1,0 +1,9 @@
+[default]
+description = "Default permissions for the plugin"
+permissions = [
+    "allow-vm-open",
+    "allow-vm-close",
+    "allow-vm-exec",
+    "allow-vm-eval-module",
+    "allow-vm-typings",
+]

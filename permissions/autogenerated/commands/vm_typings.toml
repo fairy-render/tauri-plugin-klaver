@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-vm-typings"
+description = "Enables the vm_typings command without any pre-configured scope."
+commands.allow = ["vm_typings"]
+
+[[permission]]
+identifier = "deny-vm-typings"
+description = "Denies the vm_typings command without any pre-configured scope."
+commands.deny = ["vm_typings"]
