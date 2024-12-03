@@ -1,7 +1,7 @@
 [package]
 name = "tauri-plugin-klaver"
 version = "0.1.0"
-authors = ["You"]
+authors = ["Rasmus Kildevæld"]
 description = ""
 edition = "2021"
 rust-version = "1.77.2"
@@ -9,7 +9,7 @@ exclude = ["/examples", "/webview-dist", "/webview-src", "/node_modules"]
 links = "tauri-plugin-klaver"
 
 [dependencies]
-tauri = { version = "2.1.0" }
+tauri = { version = "2.1" }
 serde = "1.0"
 thiserror = "2"
 klaver = { git = "https://github.com/fairy-render/klaver", features = [
@@ -25,4 +25,4 @@ vaerdi = { git = "https://github.com/kildevaeld/vaerdi-rs", features = [
 ] }
 
 [build-dependencies]
-tauri-plugin = { version = "2.0.2", features = ["build"] }
+tauri-plugin = { version = "2.0", features = ["build"] }

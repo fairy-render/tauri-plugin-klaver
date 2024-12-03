@@ -15,6 +15,10 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fairy-render/tauri-plugin-klaver.git"
+  },
   "files": [
     "dist-js",
     "README.md"
