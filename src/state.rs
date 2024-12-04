@@ -42,6 +42,8 @@ pub struct ManagedVm {
 #[derive(Default)]
 pub struct KlaverState {
     vms: Mutex<HashMap<VmId, ManagedVm>>,
+    #[cfg(feature = "transform")]
+    compiler: klaver::modules::transformer::Compiler,
 }
 
 impl KlaverState {
@@ -84,6 +86,16 @@ impl KlaverState {
             panic!("no vm")
         };
 
+        #[cfg(feature = "transform")]
+        let code = {
+            let ret = self
+                .compiler
+                .compile(&code, "main")
+                .map_err(|err| klaver::RuntimeError::Custom(Box::new(err)))?;
+
+            ret.code
+        };
+
         let ret = klaver::async_with!(vm.vm => |ctx| {
             Ok(ctx.eval_promise(code).catch(&ctx)?.into_future::<Val>().await.catch(&ctx)?)
         })
@@ -95,6 +107,16 @@ impl KlaverState {
     pub async fn eval_module(&self, vm: VmId, name: String, code: String) -> Result<(), Error> {
         let Some(vm) = self.vms.lock().await.get(&vm).map(|m| m.clone()) else {
             panic!("no vm")
+        };
+
+        #[cfg(feature = "transform")]
+        let code = {
+            let ret = self
+                .compiler
+                .compile(&code, &name)
+                .map_err(|err| klaver::RuntimeError::Custom(Box::new(err)))?;
+
+            ret.code
         };
 
         klaver::async_with!(vm.vm => |ctx| {

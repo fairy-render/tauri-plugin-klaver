@@ -7,6 +7,8 @@ import {
   listen,
 } from "@tauri-apps/api/event";
 
+export type LogLevel = "info" | "debug" | "warn" | "error";
+
 export async function ping(value: string): Promise<string | null> {
   return await invoke<{ value?: string }>("plugin:klaver|ping", {
     payload: {
@@ -21,15 +23,19 @@ export async function open(path: string): Promise<Vm> {
   }).then((r) => new Vm(r));
 }
 
-class Vm {
+export class Vm {
   #id: number;
 
   constructor(id: number) {
     this.#id = id;
   }
 
-  listen(cb: (level: string, message: string) => void): UnlistenFn {
-    return listenSync<{ vm: number; message: string; level: string }>(
+  get isOpen() {
+    return this.#id !== 0;
+  }
+
+  listen(cb: (level: LogLevel, message: string) => void): UnlistenFn {
+    return listenSync<{ vm: number; message: string; level: LogLevel }>(
       "klaver://console",
       (event) => {
         if (event.payload.vm !== this.#id) {
@@ -55,6 +61,7 @@ class Vm {
 
   async close() {
     await invoke("plugin:klaver|vm_close", { vm: this.#id });
+    this.#id = 0;
   }
 
   async eval(name: string, code: string) {
